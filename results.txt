@@ -1,0 +1,12 @@
+Athena Raya, Samuel Sanchez, Regie Daquioag, Evelyn Murillo
+Mean: 18800.6 Newtons
+Maximum Coupon: 21065 Newtons
+Minimum Coupon: 17563 Newtons
+Variance: 1.4674e+06 Newtons
+Standard Deviation: 1211.36 Newtons
+Mean: 18800.6 Newtons
+Maximum Coupon: 20100 Newtons
+Minimum Coupon: 10734 Newtons
+Variance: 6.11001e+06 Newtons
+Standard Deviation: 2471.84 Newtons
+According to the addition of 3 times the standard deviation to the breaking point of 16000 Newtons is 19572.31 Newtons for steel and 18837.634 Newtons for graphite. For steel, 2/10 coupons passed. For graphite, 6/10 coupons passed. With a 20% passing rate for the steel coupons and a 60% passing rate for the graphite coupons, neither prove to be successful and need to be increased to a safety factor of s = 3 in order to produce a higher safety rating.

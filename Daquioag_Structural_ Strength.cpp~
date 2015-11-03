@@ -1,0 +1,174 @@
+// Team Names: 
+//
+//
+
+#include <iostream> // cin, cout
+#include <cstdlib> // exit(1)
+#include <fstream> // ifstream, ofstream, open(), close()
+#include <iomanip> // setw()
+#include <cmath> // pow(), sqrt()
+#include <vector> // size()
+using namespace std;
+
+// THE MINIMUM AND MAXIMUM
+int fillVectorMin(ifstream& A, vector<int>& vec);
+int fillVectorMax(ifstream& A, vector<int>& vec);
+int minimumVec(vector<int> vec);
+int maximumVec(vector<int> vec);
+int compareMin(int a, int b);
+int compareMax(int a, int b); 
+// VARIANCE AND STANDARD DEVIATION
+void variance(vector<int> v, int n, ofstream& fout);
+void standardDev(vector<int> v, int n, ofstream& fout);
+
+
+int main()
+{
+	int iterator;
+	int steelMin, steelMax;
+	int graphiteMin, graphiteMax;
+	int steelCount = 0, graphiteCount = 0;
+	ifstream fin1, fin2;
+	ofstream fout1;
+	vector<int> steel;
+	vector<int> graphite;
+	fin1.open("data1.txt");
+	fin2.open("data2.txt");
+	fout1.open("result.txt");
+    
+	if(fin1.fail() || fin2.fail() || fout1.fail())
+	{
+    	cout << "Error on opening files" << endl;
+    	exit(1);
+	}
+//---------------------------------------------------------------------------------------   
+	while(fin1 >> iterator)
+	{
+    	steel.push_back(iterator);
+    	steelCount++;
+	}
+	steelMin = minimumVec(steel);
+    steelMax = maximumVec(steel);
+    
+	while(fin2 >> iterator)
+	{
+    	graphite.push_back(iterator);
+    	graphiteCount++;
+	}
+	graphiteMin = minimumVec(graphite);
+    graphiteMax = maximumVec(graphite);
+    
+    compareMin(steelMin, graphiteMin);
+    compareMax(steelMax, graphiteMax);
+//---------------------------------------------------------------------------------------       
+	fout1 << "Samuel Sanchez, Athena Raya, Evelyn Murillo, Regie Daquioag\n" << endl;
+	
+	fout1 << "---------STEEL---------" << endl;
+	cout << "The minimum for steel is " << steelMin << endl;
+	cout << "The maximum for steel is " << steelMax << endl;
+	fout1 << "The minimum for steel is " << steelMin << endl;
+	fout1 << "The maximum for steel is " << steelMax << endl;
+	variance(steel, steelCount, fout1);
+	standardDev(steel, steelCount, fout1);
+	fout1 << endl;
+	fout1 << "---------GRAPHITE---------" << endl;
+	cout << "The minimum for graphite is " << graphiteMin << endl;
+	cout << "The maximum for graphite is " <<  graphiteMax << endl;
+	fout1 << "The minimum for graphite is " << graphiteMin << endl;
+	fout1 << "The maximum for graphite is " <<  graphiteMax << endl;
+	variance(graphite, graphiteCount, fout1);
+	standardDev(graphite, steelCount, fout1);
+	fout1 << endl;
+	fout1 << "-----OVERALL MIN & MAX-----" << endl;
+	fout1 << "Overall minimun from both is " << compareMin(steelMin, graphiteMin) << endl;
+	fout1 << "Overall maximum from both is " << compareMax(steelMax, graphiteMax) << endl;
+    
+	fin1.close();
+	fin2.close();
+	fout1.close();
+	return 0;
+}
+//**************************************************
+int minimumVec(vector<int> vec)
+{
+    int min = vec[0];
+    
+    for(int ix = 1; ix < vec.size(); ix++)
+    {
+        if(vec[ix] < min)
+        {
+            min = vec[ix];
+        }
+    }
+    return min;
+}
+//**************************************************
+int maximumVec(vector<int> vec)
+{
+    int max = vec[0];
+    
+    for(int ix = 1; ix < vec.size(); ix++)
+    {
+        if(vec[ix] > max)
+        {
+            max = vec[ix];
+        }
+    }
+    return max;
+}
+//**************************************************
+int compareMin(int a, int b)
+{
+    if (a < b)
+    {
+        return a;
+    }
+    return b;
+}
+//**************************************************
+int compareMax(int a, int b)
+{
+    if (a > b)
+    {
+        return a;
+    }
+    return b;
+}
+//**************************************************
+void variance(vector<int> v, int n, ofstream& fout)
+{
+	double total = 0, sum = 0;
+	double mean, variance;
+	for(int xi = 0; xi < n; xi++)
+	{
+    	total += v[xi];  
+	}
+	mean = total / n;
+	for(int xi = 0; xi < n; xi++)
+	{
+    	sum +=  pow((v[xi] - mean), 2);
+	}
+	variance = (sum/n);
+	cout << "Variance: " << variance << " Newtons"<< endl;
+	fout << "Variance: " << variance << " Newtons"<< endl;
+	return;
+}
+//**************************************************
+void standardDev(vector<int> v, int n, ofstream& fout)
+{
+	int total = 0, sum = 0;
+	double mean, stdDev;
+	for(int xi = 0; xi < n; xi++)
+	{
+    	total += v[xi];  
+	}
+	mean = total / n;
+	for(int xi = 0; xi < n; xi++)
+	{
+    	sum +=  pow((v[xi] - mean), 2);
+	}
+	stdDev = sqrt(sum/n);
+	cout << "Standard Deviation: "<< stdDev << " Newtons" << endl;
+	fout << "Standard Deviation: "<< stdDev << " Newtons" << endl;
+	return;
+}
